@@ -3,8 +3,19 @@ import { Link } from "react-router-dom";
 
 import mcitylogo from "../../Resources/images/logos/manchester_city_logo.png";
 
-export const CityLogo = () => {
-  const template = <div>logo</div>;
+export const CityLogo = props => {
+  const template = (
+    <div
+      className="img_cover"
+      style={{
+        width: props.width,
+        height: props.height,
+        background: `url(${mcitylogo}) no-repeat`
+      }}
+    >
+      logo
+    </div>
+  );
 
   if (props.link) {
     return (
