@@ -3,7 +3,7 @@ import Featured from "./featured";
 
 const index = () => {
   return (
-    <div className="bc_blue">
+    <div className="bck_blue">
       <Featured />
     </div>
   );
