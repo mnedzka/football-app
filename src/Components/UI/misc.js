@@ -23,3 +23,16 @@ export const Tag = ({ bck, size, color, children, link, linkTo }) => {
     return template;
   }
 };
+
+export const firebaseLooper = snapshot => {
+  let data = [];
+
+  snapshot.forEach(childSnapshot => {
+    data.push({
+      ...childSnapshot.val(),
+      id: childSnapshot.key
+    });
+  });
+
+  return data;
+};
