@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Tag = ({ bck, size, color, children, link, linkTo }) => {
+export const Tag = ({ bck, size, color, children, link, linkTo, add }) => {
   const template = (
     <div
       style={{
@@ -10,7 +10,8 @@ export const Tag = ({ bck, size, color, children, link, linkTo }) => {
         color: color,
         padding: "5px 10px",
         display: "inline-block",
-        fontFamily: "Righteous"
+        fontFamily: "Righteous",
+        ...add
       }}
     >
       {children}

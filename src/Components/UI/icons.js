@@ -12,9 +12,7 @@ export const CityLogo = props => {
         height: props.height,
         background: `url(${mcitylogo}) no-repeat`
       }}
-    >
-      logo
-    </div>
+    />
   );
 
   if (props.link) {
