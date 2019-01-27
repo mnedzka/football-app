@@ -6,7 +6,7 @@ import HomeCards from "./cards";
 
 class MeetPlayers extends Component {
   state = {
-    show: true
+    show: false
   };
   render() {
     return (
