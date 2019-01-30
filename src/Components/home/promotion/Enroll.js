@@ -27,10 +27,8 @@ class Enroll extends Component {
   };
 
   updateForm(element) {
-    console.log(element);
     const newFormData = { ...this.state.formData };
     const newElement = { ...newFormData[element.id] };
-
     newElement.value = element.e.target.value;
 
     let validData = validate(newElement);
@@ -40,11 +38,29 @@ class Enroll extends Component {
     newFormData[element.id] = newElement;
 
     this.setState({
+      formError: false,
       formData: newFormData
     });
   }
 
-  submitForm = () => {};
+  submitForm = e => {
+    e.preventDefault();
+
+    let dataToSubmit = {};
+    let formIsValid = true;
+
+    for (let key in this.state.formData) {
+      dataToSubmit[key] = this.state.formData[key].value;
+      formIsValid = this.state.formData[key].valid && formIsValid;
+    }
+
+    if (formIsValid) {
+    } else {
+      this.setState({
+        formError: true
+      });
+    }
+  };
 
   render() {
     return (
@@ -59,6 +75,12 @@ class Enroll extends Component {
                 formdata={this.state.formData.email}
                 change={element => this.updateForm(element)}
               />
+
+              {this.state.formError ? (
+                <div className="error_label">Something is wrong try again</div>
+              ) : null}
+
+              <button onClick={e => this.submitForm(e)}>Enroll</button>
             </div>
           </form>
         </div>
