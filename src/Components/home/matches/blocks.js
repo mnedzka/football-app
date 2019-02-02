@@ -15,11 +15,6 @@ class Blocks extends Component {
       .once("value")
       .then(snapshot => {
         const matches = firebaseLooper(snapshot);
-
-        // const reverseMatches = matches.reverse();
-
-        // console.log(matches);
-        // console.log(reverseMatches);
         this.setState({
           matches: matches.reverse()
         });

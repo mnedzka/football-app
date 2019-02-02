@@ -13,7 +13,6 @@ class MeetPlayers extends Component {
       <Reveal
         fraction={0.7}
         onReveal={() => {
-          console.log("reveal");
           this.setState({ show: true });
         }}
       >

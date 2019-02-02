@@ -18,10 +18,3 @@ const firebaseMatches = firebaseDB.ref("matches");
 const firebasePromotions = firebaseDB.ref("promotions");
 
 export { firebase, firebaseMatches, firebasePromotions };
-
-// firebaseDB
-//   .ref("matches")
-//   .once("value")
-//   .then(snapshot => {
-//     console.log(snapshot.val());
-//   });

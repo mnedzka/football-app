@@ -61,7 +61,7 @@ class Enroll extends Component {
         .equalTo(dataToSubmit.email)
         .once("value")
         .then(snapshot => {
-          if (snapshot.value() === null) {
+          if (snapshot.val() === null) {
             firebasePromotions.push(dataToSubmit);
             this.resetFormSuccess(true);
           } else {
