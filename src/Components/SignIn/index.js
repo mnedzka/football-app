@@ -1,12 +1,28 @@
 import React, { Component } from "react";
 import FormField from "../UI/FormField";
 import { validate } from "../UI/misc";
+import { firebase } from "../../firebase";
 
 class SignIn extends Component {
   state = {
     formError: false,
     formSuccess: "",
     formData: {
+      email: {
+        element: "input",
+        value: "",
+        config: {
+          name: "email_input",
+          type: "email",
+          placeholder: "Enter your email"
+        },
+        validation: {
+          required: true,
+          email: true
+        },
+        valid: false,
+        validationMessage: ""
+      },
       password: {
         element: "input",
         value: "",
@@ -53,7 +69,17 @@ class SignIn extends Component {
     }
 
     if (formIsValid) {
-      // console.log(dataToSubmit);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(dataToSubmit.email, dataToSubmit.password)
+        .then(() => {
+          this.props.history.push("/dashboard");
+        })
+        .catch(() => {
+          this.setState({
+            formError: true
+          });
+        });
     } else {
       this.setState({
         formError: true
@@ -64,7 +90,7 @@ class SignIn extends Component {
   render() {
     return (
       <div className="container">
-        <div className="sigin_wrapper" style={{ margin: "100px" }}>
+        <div className="signin_wrapper" style={{ margin: "100px" }}>
           <form onSubmit={e => this.submitForm(e)}>
             <h2>Please login</h2>
 
@@ -79,6 +105,10 @@ class SignIn extends Component {
               formdata={this.state.formData.password}
               change={element => this.updateForm(element)}
             />
+
+            {this.state.formError ? (
+              <div className="error_label">Something is wrong try again</div>
+            ) : null}
 
             <button onClick={e => this.submitForm(e)}>Log in</button>
           </form>
