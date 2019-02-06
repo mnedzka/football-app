@@ -117,6 +117,43 @@ class AddEditMatch extends Component {
         valid: false,
         validationMessage: "",
         showLabel: true
+      },
+      result: {
+        element: "select",
+        value: "",
+        config: {
+          label: "Team result",
+          name: "select_result",
+          type: "select",
+          options: [
+            { key: "W", value: "W" },
+            { key: "L", value: "L" },
+            { key: "D", value: "D" },
+            { key: "n/a", value: "n/a" }
+          ]
+        },
+        validation: {
+          require: "true"
+        },
+        valid: false,
+        validationMessage: "",
+        showLabel: true
+      },
+      final: {
+        element: "select",
+        value: "",
+        config: {
+          label: "Game played",
+          name: "select_played",
+          type: "select",
+          options: [{ key: "Yes", value: "Yes" }, { key: "No", value: "No" }]
+        },
+        validation: {
+          require: "true"
+        },
+        valid: false,
+        validationMessage: "",
+        showLabel: true
       }
     }
   };
@@ -124,7 +161,7 @@ class AddEditMatch extends Component {
   render() {
     return (
       <AdminLayout>
-        <div className="editmatch_dialog">
+        <div className="editmatch_dialog_wrapper">
           <h2>{this.state.formType}</h2>
           <div>
             <form onSubmit={e => this.submitForm(e)}>
@@ -172,6 +209,43 @@ class AddEditMatch extends Component {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div className="split_fields">
+                <FormField
+                  id="referee"
+                  formdata={this.state.formData.referee}
+                  change={element => this.updateForm(element)}
+                />
+                <FormField
+                  id="stadium"
+                  formdata={this.state.formData.stadium}
+                  change={element => this.updateForm(element)}
+                />
+              </div>
+
+              <div className="split_fields last">
+                <FormField
+                  id="result"
+                  formdata={this.state.formData.result}
+                  change={element => this.updateForm(element)}
+                />
+
+                <FormField
+                  id="final"
+                  formdata={this.state.formData.final}
+                  change={element => this.updateForm(element)}
+                />
+              </div>
+
+              <div className="success_label">{this.state.formSuccess}</div>
+              {this.state.formError ? (
+                <div className="label_error">Sth is wrong</div>
+              ) : null}
+              <div className="admin_submit">
+                <button onClick={e => this.submitForm(e)}>
+                  {this.state.formType}
+                </button>
               </div>
             </form>
           </div>
