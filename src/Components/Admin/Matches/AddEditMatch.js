@@ -3,6 +3,9 @@ import AdminLayout from "../../../HOC/AdminLayout";
 import FormField from "../../UI/FormField";
 import { validate } from "../../UI/misc";
 
+import { firebaseTeams, firebaseDB, firebaseMatches } from "../../../firebase";
+import { firebaseLooper } from "../../UI/misc";
+
 class AddEditMatch extends Component {
   state = {
     matchId: "",
@@ -157,6 +160,53 @@ class AddEditMatch extends Component {
       }
     }
   };
+
+  updateForm = element => {
+    const newFormData = { ...this.state.formData };
+    const newElement = { ...newFormData[element.id] };
+    newElement.value = element.e.target.value;
+
+    let validData = validate(newElement);
+    newElement.valid = validData[0];
+    newElement.validationMessage = validData[1];
+
+    newFormData[element.id] = newElement;
+
+    this.setState({
+      formError: false,
+      formData: newFormData
+    });
+  };
+
+  componentDidMount() {
+    const matchId = this.props.match.params.id;
+
+    const getTeams = (match, type) => {
+      firebaseTeams.once("value").then(snapshot => {
+        const teams = firebaseLooper(snapshot);
+        const teamOptions = [];
+
+        snapshot.forEach(childSnapshot => {
+          teamOptions.push({
+            key: childSnapshot.val().shortName,
+            value: childSnapshot.val().shortName
+          });
+        });
+      });
+    };
+
+    if (!matchId) {
+    } else {
+      firebaseDB
+        .ref(`matches/${matchId}`)
+        .once("value")
+        .then(snapshot => {
+          const match = snapshot.val();
+
+          getTeams(match, "Edit match");
+        });
+    }
+  }
 
   render() {
     return (
