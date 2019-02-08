@@ -178,6 +178,29 @@ class AddEditMatch extends Component {
     });
   };
 
+  updateFields(match, teamOptions, teams, type, matchId) {
+    const newFormData = {
+      ...this.state.formData
+    };
+
+    for (let key in newFormData) {
+      if (match) {
+        newFormData[key].value = match[key];
+        newFormData[key].valid = true;
+      }
+      if (key === "local" || key === "away") {
+        newFormData[key].config.options = teamOptions;
+      }
+
+      this.setState({
+        matchId,
+        formType: type,
+        formData: newFormData,
+        teams
+      });
+    }
+  }
+
   componentDidMount() {
     const matchId = this.props.match.params.id;
 
@@ -192,6 +215,8 @@ class AddEditMatch extends Component {
             value: childSnapshot.val().shortName
           });
         });
+
+        this.updateFields(match, teamOptions, teams, type, matchId);
       });
     };
 

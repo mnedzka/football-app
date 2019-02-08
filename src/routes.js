@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "./HOC/layout";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Home from "./Components/home";
 import SignIn from "./Components/SignIn";
 import Dashboard from "./Components/Admin/Dashboard";
@@ -10,7 +10,6 @@ import AdminMatches from "./Components/Admin/Matches";
 import AddEditMatches from "./Components/Admin/Matches/AddEditMatch";
 
 const Routes = props => {
-  console.log(props.user);
   return (
     <Layout>
       <Switch>
