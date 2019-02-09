@@ -234,7 +234,7 @@ class AddEditMatch extends Component {
     });
 
     if (formIsValid) {
-      if (this.state.formType === "Edit Match") {
+      if (this.state.formType === "Edit match") {
         firebaseDB
           .ref(`matches${this.state.matchId}`)
           .update(dataToSubmit)
@@ -245,6 +245,14 @@ class AddEditMatch extends Component {
             this.setState({ formError: true });
           });
       } else {
+        firebaseMatches
+          .push(dataToSubmit)
+          .then(() => {
+            this.props.history.push("/admin_matches");
+          })
+          .catch(e => {
+            this.setState({ formError: true });
+          });
       }
     } else {
       this.setState({
@@ -273,6 +281,7 @@ class AddEditMatch extends Component {
     };
 
     if (!matchId) {
+      getTeams(false, "Add match");
     } else {
       firebaseDB
         .ref(`matches/${matchId}`)
@@ -299,12 +308,12 @@ class AddEditMatch extends Component {
               />
 
               <div className="select_team_layout">
-                <div className="label_inputs">local</div>
+                <div className="label_inputs">Local</div>
                 <div className="wrapper">
                   <div className="left">
                     <FormField
                       id="local"
-                      formdata={this.state.formData.date}
+                      formdata={this.state.formData.local}
                       change={element => this.updateForm(element)}
                     />
                   </div>
@@ -365,15 +374,15 @@ class AddEditMatch extends Component {
                 />
               </div>
 
-              <div className="success_label">{this.state.formSuccess}</div>
-              {this.state.formError ? (
-                <div className="label_error">Sth is wrong</div>
-              ) : null}
               <div className="admin_submit">
                 <button onClick={e => this.submitForm(e)}>
                   {this.state.formType}
                 </button>
               </div>
+              <div className="success_label">{this.state.formSuccess}</div>
+              {this.state.formError ? (
+                <div className="label_error">Sth is wrong</div>
+              ) : null}
             </form>
           </div>
         </div>
