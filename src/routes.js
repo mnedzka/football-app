@@ -17,13 +17,13 @@ const Routes = props => {
       <Switch>
         <PrivateRoute
           {...props}
-          path="/admin_matches/add_players"
+          path="/admin_players/add_players"
           exact
           component={AddEditPlayers}
         />
         <PrivateRoute
           {...props}
-          path="/admin_matches/add_players/:id"
+          path="/admin_players/add_players/:id"
           exact
           component={AddEditPlayers}
         />

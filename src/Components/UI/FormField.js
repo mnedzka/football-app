@@ -21,7 +21,7 @@ const FormField = ({ formdata, id, change }) => {
         formTemplate = (
           <div>
             {formdata.showLabel ? (
-              <div className="label_input">{formdata.config.label}</div>
+              <div className="label_inputs">{formdata.config.label}</div>
             ) : null}
             <input
               {...formdata.config}
