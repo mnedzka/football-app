@@ -86,7 +86,7 @@ class AddEditPlayers extends Component {
         validation: {
           required: true
         },
-        valid: true
+        valid: false
       }
     }
   };
@@ -102,10 +102,15 @@ class AddEditPlayers extends Component {
     }
   }
 
-  updateForm = element => {
+  updateForm = (element, content = "") => {
     const newFormData = { ...this.state.formData };
     const newElement = { ...newFormData[element.id] };
-    newElement.value = element.e.target.value;
+
+    if (content === "") {
+      newElement.value = element.e.target.value;
+    } else {
+      newElement.value = content;
+    }
 
     let validData = validate(newElement);
     newElement.valid = validData[0];
@@ -131,6 +136,20 @@ class AddEditPlayers extends Component {
     }
 
     if (formIsValid) {
+      if (this.formType === "Edit player") {
+        //
+      } else {
+        firebasePlayers
+          .push(dataToSubmit)
+          .then(() => {
+            this.props.history.push("/admin_players");
+          })
+          .catch(e => {
+            this.setState({
+              formError: true
+            });
+          });
+      }
     } else {
       this.setState({
         formError: true
@@ -138,8 +157,19 @@ class AddEditPlayers extends Component {
     }
   };
 
-  resetImage = () => {};
-  storeFilename = () => {};
+  resetImage = () => {
+    const newFormData = { ...this.state.formData };
+    newFormData["image"].value = "";
+    newFormData["image"].valid = false;
+    this.setState({
+      defaultImg: "",
+      formData: newFormData
+    });
+  };
+
+  storeFilename = filename => {
+    this.updateForm({ id: "image" }, filename);
+  };
 
   render() {
     return (

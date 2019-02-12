@@ -21,11 +21,22 @@ class Fileuploader extends Component {
     return null;
   }
 
+  uploadAgain = () => {
+    this.setState({
+      name: "",
+      isUploading: false,
+      fileURL: ""
+    });
+
+    this.props.resetImage();
+  };
+
   handleUploadStart = () => {
     this.setState({
       isUploading: true
     });
   };
+
   handleUploadError = () => {
     this.setState({
       isUploading: false
@@ -47,6 +58,8 @@ class Fileuploader extends Component {
           fileURL: url
         });
       });
+
+    this.props.filename(filename);
   };
 
   render() {
