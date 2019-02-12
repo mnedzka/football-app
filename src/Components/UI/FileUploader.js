@@ -21,27 +21,70 @@ class Fileuploader extends Component {
     return null;
   }
 
-  handleUploadStart() {}
-  handleUploadError() {}
-  handleUploadSuccess() {}
+  handleUploadStart = () => {
+    this.setState({
+      isUploading: true
+    });
+  };
+  handleUploadError = () => {
+    this.setState({
+      isUploading: false
+    });
+  };
+  handleUploadSuccess = filename => {
+    this.setState({
+      name: filename,
+      isUploading: false
+    });
+
+    firebase
+      .storage()
+      .ref(this.props.dir)
+      .child(filename)
+      .getDownloadURL()
+      .then(url => {
+        this.setState({
+          fileURL: url
+        });
+      });
+  };
 
   render() {
+    const { isUploading, fileURL, name } = this.state;
+    const { tag, dir } = this.props;
     return (
       <div>
-        {!this.state.fileURL ? (
+        {!fileURL && (
           <div>
-            <div className="label_inputs">{this.props.tag}</div>
+            <div className="label_inputs">{tag}</div>
             <FileUploader
               accept="image/*"
               name="image"
               randomizeFilename
-              storageRef={firebase.storage().ref(this.props.dir)}
+              storageRef={firebase.storage().ref(dir)}
               onUploadStart={this.handleUploadStart}
               onUploadError={this.handleUploadError}
               onUploadSuccess={this.handleUploadSuccess}
             />
           </div>
-        ) : null}
+        )}
+        {isUploading && (
+          <div
+            className="progress"
+            style={{ textAlign: "center", margin: "30px 0" }}
+          >
+            <CircularProgress style={{ color: "#98c6e9" }} thickness={7} />
+          </div>
+        )}
+
+        {fileURL && (
+          <div className="image_upload_container">
+            <img style={{ width: "100%" }} src={fileURL} alt={name} />
+            <div className="remove" onClick={() => this.uploadAgain()}>
+              Remove
+            </div>
+          </div>
+        )}
       </div>
     );
   }
