@@ -91,6 +91,22 @@ class AddEditPlayers extends Component {
     }
   };
 
+  updateFields = (player, playerId, formType, defaultImg) => {
+    const newFormData = { ...this.state.formData };
+
+    for (let key in newFormData) {
+      newFormData[key].value = player[key];
+      newFormData[key].valid = true;
+    }
+
+    this.setState({
+      playerId,
+      defaultImg,
+      formType,
+      formData: newFormData
+    });
+  };
+
   componentDidMount() {
     const playerId = this.props.match.params.id;
 
@@ -99,6 +115,20 @@ class AddEditPlayers extends Component {
         formType: "Add Player"
       });
     } else {
+      firebaseDB
+        .ref(`players/${playerId}`)
+        .once("value")
+        .then(snapshot => {
+          const playerData = snapshot.val();
+
+          firebase.storage
+            .ref("players")
+            .child(playerData.image)
+            .getDownloadURL()
+            .then(url => {
+              this.updateFields(playerData, playerId, "Edit player", url);
+            });
+        });
     }
   }
 
