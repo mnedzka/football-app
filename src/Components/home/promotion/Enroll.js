@@ -18,8 +18,8 @@ class Enroll extends Component {
           placeholder: "Enter your email"
         },
         validation: {
-          require: "true",
-          email: "true"
+          required: true,
+          email: true
         },
         valid: false,
         validationMessage: ""

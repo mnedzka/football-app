@@ -23,7 +23,7 @@ class AddEditMatch extends Component {
           type: "date"
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -39,7 +39,7 @@ class AddEditMatch extends Component {
           options: []
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -54,7 +54,7 @@ class AddEditMatch extends Component {
           type: "text"
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -70,7 +70,7 @@ class AddEditMatch extends Component {
           options: []
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -85,7 +85,7 @@ class AddEditMatch extends Component {
           type: "text"
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -100,7 +100,7 @@ class AddEditMatch extends Component {
           type: "text"
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -115,7 +115,7 @@ class AddEditMatch extends Component {
           type: "text"
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -136,7 +136,7 @@ class AddEditMatch extends Component {
           ]
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
@@ -152,7 +152,7 @@ class AddEditMatch extends Component {
           options: [{ key: "Yes", value: "Yes" }, { key: "No", value: "No" }]
         },
         validation: {
-          require: "true"
+          required: true
         },
         valid: false,
         validationMessage: "",
